@@ -6,7 +6,8 @@
 }
 
 body {
-  
+    display: flex;
+    flex-direction: column;
   background: white;
 }
 
@@ -54,11 +55,9 @@ header {
   'opsz' 24
 }
 
-.icon {
-  height: 25px;
-}
 
 main {
+    margin-top: 60px;
   padding: 30px 20px;
   text-align: center;
 }
