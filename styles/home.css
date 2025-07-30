@@ -57,6 +57,8 @@ header {
 
 
 main {
+    display: flex;
+    flex-direction: column;
     margin-top: 60px;
   padding: 30px 20px;
   text-align: center;
@@ -70,7 +72,8 @@ h1 {
 
 .search-container input {
   padding: 10px;
-  width: 300px;
+  width: 629px;
+  height: 32px;
   max-width: 90%;
   border: none;
   border-radius: 3px;
@@ -83,16 +86,21 @@ h1 {
 }
 
 .filters {
-  margin-bottom: 30px;
+    display : flex;
+    justify-content: center;
+    gap: 20px;
+  margin-bottom: 50px;
 }
 
 .filters button {
-  margin: 0 5px;
-  padding: 8px 15px;
+    width: 87px;
+    height: 27px;
+  margin: 0;
+  
   background-color: #d9d9d9;
   border: none;
   border-radius: 3px;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
 }
 
