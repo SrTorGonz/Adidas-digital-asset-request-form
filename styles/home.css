@@ -14,11 +14,21 @@ header {
   background-color: #d9d9d9;
   font-size: 14px;
   font-weight: 500;
+  position: fixed;
+  display: flex; 
+  justify-content: center;
   font-style: normal;
+  height: 60px;
+  width: 100%;
+}
+
+.header-container {
+    width: 1280px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding-left: 27px;
+  padding-right: 27px;
 }
 
 .logo {
