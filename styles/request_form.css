@@ -52,7 +52,7 @@ header {
   'FILL' 1,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 24
+  'opsz' 24;
 }
 
 main {
@@ -64,6 +64,7 @@ main {
   text-align: center;
   font-weight: 700;
   margin-bottom: 30px;
+  font-size: 24px;;
 }
 
 .content {
@@ -81,22 +82,23 @@ main {
 
 .selected-assets h2 {
   margin-bottom: 15px;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 24px;
 }
 
 .asset-card {
   background-color: #d9d9d9;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 15px;
   border-radius: 4px;
   position: relative;
 }
 
 .preview {
-  width: 80px;
-  height: 80px;
+  width: 155px;
+  height: 155px;
   background-color: #eee;
   margin-right: 15px;
 }
@@ -109,6 +111,11 @@ main {
 
 .asset-info {
   flex: 1;
+}
+
+.asset-info strong {
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .delete-btn {
