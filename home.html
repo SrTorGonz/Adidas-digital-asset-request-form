@@ -27,16 +27,16 @@
     <h1>WELCOME TO ADIDAS DIGITAL ASSETS</h1>
 
     <div class="search-container">
-      <input type="text" placeholder="Search">
+      <input type="text" id="searchInput" placeholder="Search">
     </div>
 
-    <div class="filters">
-      <button>Images</button>
-      <button>Videos</button>
-      <button>Vectors</button>
+    <div class="filters" id="filters">
+      <button class="filter-btn" data-type="image">Images</button>
+      <button class="filter-btn" data-type="video">Videos</button>
+      <button class="filter-btn" data-type="vector">Vectors</button>
     </div>
 
-    <div class="grid">
+    <div id="grid" class="grid">
       <div class="card"></div>
       <div class="card"></div>
       <div class="card"></div>
