@@ -102,10 +102,16 @@ h1 {
   border-radius: 3px;
   font-weight: 400;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .filters button:hover {
   background-color: #c4c4c4;
+}
+
+.filters button.active {
+  background-color: #000;
+  color: white;
 }
 
 .grid {
