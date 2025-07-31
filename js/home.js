@@ -39,27 +39,33 @@ function renderAssets() {
   }
 
   filtered.forEach(asset => {
-    const card = document.createElement("div");
-    card.classList.add("card");
+        const card = document.createElement("div");
+        card.classList.add("card");
 
-    if (asset.type.startsWith("image")) {
-      const img = document.createElement("img");
-      img.src = asset.file_path;
-      img.alt = asset.name;
-      card.appendChild(img);
-    } else if (asset.type.startsWith("video")) {
-      const video = document.createElement("video");
-      video.src = asset.file_path;
-      video.controls = true;
-      card.appendChild(video);
-    }
+        let mediaElement;
 
-    const nameLabel = document.createElement("p");
-    nameLabel.textContent = asset.name;
-    card.appendChild(nameLabel);
+        if (asset.type.startsWith("image")) {
+            mediaElement = document.createElement("img");
+            mediaElement.src = asset.file_path;
+            mediaElement.alt = asset.name;
+        } else if (asset.type.startsWith("video")) {
+            mediaElement = document.createElement("video");
+            mediaElement.src = asset.file_path;
+            mediaElement.controls = true;
+        }
 
-    container.appendChild(card);
-  });
+        if (mediaElement) {
+            mediaElement.classList.add("clickable-media");
+            mediaElement.addEventListener("click", () => openOverlay(asset));
+            card.appendChild(mediaElement);
+        }
+
+        const nameLabel = document.createElement("p");
+        nameLabel.textContent = asset.name;
+        card.appendChild(nameLabel);
+
+        container.appendChild(card);
+    });
 }
 
 // Search input event listener
@@ -92,4 +98,42 @@ document.querySelectorAll(".filter-btn").forEach(button => {
 
     renderAssets();
   });
+
+  
 });
+
+function openOverlay(asset) {
+    const overlay = document.getElementById("overlay");
+    const overlayImage = document.getElementById("overlay-image");
+    const overlayTitle = document.getElementById("overlay-title");
+    const overlayType = document.getElementById("overlay-type");
+    const overlayResolution = document.getElementById("overlay-resolution");
+    const overlayFormat = document.getElementById("overlay-format");
+
+    // Mostrar título y tipo
+    overlayTitle.textContent = asset.name;
+    overlayType.textContent = asset.type;
+
+    // Detectar formato (extensión) desde el nombre o path
+    const extension = asset.file_path.split('.').pop();
+    overlayFormat.textContent = extension.toUpperCase();
+
+    // Cargar imagen o video
+    if (asset.type.startsWith("image")) {
+        overlayImage.src = asset.file_path;
+        overlayImage.style.display = "block";
+        overlayImage.onload = () => {
+        overlayResolution.textContent = `${overlayImage.naturalWidth}x${overlayImage.naturalHeight}`;
+        };
+    } else {
+        overlayImage.style.display = "none";
+        overlayResolution.textContent = "N/A";
+    }
+
+    overlay.classList.remove("hidden");
+    }
+
+    function closeOverlay() {
+    const overlay = document.getElementById("overlay");
+    overlay.classList.add("hidden");
+    }

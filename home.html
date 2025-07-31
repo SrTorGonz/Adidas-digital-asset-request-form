@@ -43,6 +43,22 @@
       <div class="card"></div>
     </div>
   </main>
+
+  <div id="overlay" class="overlay hidden">
+    <div class="overlay-content">
+      <span class="close-btn" onclick="closeOverlay()">&times;</span>
+      <h2 id="overlay-title">ASSET NAME</h2>
+      <img id="overlay-image" src="" alt="Asset image">
+      <div class="overlay-info">
+        <p><strong>TYPE:</strong> <span id="overlay-type"></span></p>
+        <p><strong>RESOLUTION:</strong> <span id="overlay-resolution"></span></p>
+        <p><strong>FORMAT:</strong> <span id="overlay-format"></span></p>
+        <button class="add-to-request">+ ADD TO REQUEST</button>
+      </div>
+    </div>
+  </div>
+
+
   <script src="js/home.js"></script>
 </body>
 </html>
