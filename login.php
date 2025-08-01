@@ -2,6 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+session_start(); // <- Iniciar la sesión al principio
+
 header('Content-Type: application/json');
 
 require_once "connection.php";
@@ -15,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // prepare and execute the query using the email
     $stmt = $conn->prepare("SELECT id, password_hash, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     
@@ -30,8 +31,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
 
         if (password_verify($password, $user['password_hash'])) {
-            // Successful authentication
-            echo json_encode(["success" => true, "role" => $user['role']]);
+            // Iniciar sesión guardando el ID y rol
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_role'] = $user['role'];
+
+            echo json_encode([
+                "success" => true,
+                "role" => $user['role'],
+                "message" => "Login successful"
+            ]);
             exit;
         } else {
             echo json_encode(["success" => false, "message" => "Invalid password"]);
