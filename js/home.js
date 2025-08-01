@@ -102,7 +102,41 @@ document.querySelectorAll(".filter-btn").forEach(button => {
   
 });
 
+let selectedAssetId = null;
+
+const addToRequestBtn = document.getElementById("addToRequestBtn");
+
+    if (addToRequestBtn) {
+      addToRequestBtn.addEventListener("click", () => {
+        if (!selectedAssetId) return;
+
+        fetch("add_to_cart.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ asset_id: selectedAssetId })
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log("Server response:", data);
+          if (data.success) {
+            alert("Asset added to request!");
+            closeOverlay();
+          } else {
+            alert("Error adding asset to request.");
+          }
+        })
+        .catch(error => {
+          console.error("Request failed:", error);
+          alert("Connection error.");
+        });
+      });
+    }
+
 function openOverlay(asset) {
+    selectedAssetId = asset.id; //  save the selected asset ID
+
     const overlay = document.getElementById("overlay");
     const overlayImage = document.getElementById("overlay-image");
     const overlayTitle = document.getElementById("overlay-title");
