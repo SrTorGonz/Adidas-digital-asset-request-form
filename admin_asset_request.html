@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asset Request</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles/request_form.css"/>
+    <link rel ="stylesheet" href="styles/admin_asset_request.css"/>
+    <!-- Google Font connection -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Google material Icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=assignment_add,check_box,notifications" />
+</head>
+<body>
+  <header>
+    <div class ="header-container">
+        <a href="home.html">
+          <img src="images/Adidas_logo.png" alt="Adidas Logo" class="logo">
+        </a>
+        <nav class="nav-right">
+        <a href="adminRequests.html">Requests</a>
+        <a href="">
+          <span class="material-symbols-outlined">notifications</span>
+        </a>
+        </nav>
+    </div>
+    
+  </header>
+
+  <main>
+    <h1 class="page-title">ASSETS REQUEST</h1>
+
+    <div class="info">
+        <div class="request-details">
+            <div>
+                <h2>DATE</h2>
+                <p id="request-date">2023-10-01</p>
+            </div>
+            <div>
+                <h2>USER</h2>
+                <p id="request-user">user@example.com</p>
+            </div>
+            <div>
+                <h2>DEADLINE</h2>
+                <p id="request-deadline">2023-10-15</p>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h2>PURPOSE</h2>
+                <p id="request-purpose">For marketing campaign</p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+      <!-- Left: Selected Assets -->
+      <section class="selected-assets" id="assetCardsContainer">
+        <h2>SELECTED ASSETS</h2>
+        
+        <div class="asset-card">
+          <div class="preview"></div>
+          <div class="asset-info">
+            <strong>Name</strong>
+            <p>TYPE: image</p>
+            <p>FORMAT: PNG</p>
+            <p>RESOLUTION: 1920x1080</p>
+          </div>
+          <span class="material-symbols-outlined">check_box</span>
+        </div>
+
+        <div class="asset-card">
+          <img src="jacket.png" alt="Asset" class="preview">
+          <div class="asset-info">
+            <strong>Name</strong>
+            <p>TYPE: image</p>
+            <p>FORMAT: PNG</p>
+            <p>RESOLUTION: 1920x1080</p>
+          </div>
+          <span class="material-symbols-outlined">check_box</span>
+        </div>
+
+        <div class="asset-card">
+          <img src="shoes.png" alt="Asset" class="preview">
+          <div class="asset-info">
+            <strong>Name</strong>
+            <p>TYPE: image</p>
+            <p>FORMAT: PNG</p>
+            <p>RESOLUTION: 1920x1080</p>
+          </div>
+          <span class="material-symbols-outlined">check_box</span>
+        </div>
+      </section>
+
+      <!-- Right: Form -->
+      <section class="request-form">
+
+        <label for="purpose">RECOMMENDATIONS</label>
+        <textarea id="purpose" placeholder="Enter recommendations..."></textarea>
+
+        <label for="deadline">DEADLINE</label>
+        <input type="text" id="deadline" placeholder="DD/MM/YYYY">
+        <div class ="buttons">
+            <button class="submit-btn" id="approveBtn">ACCEPT</button>
+            <button class="submit-btn" id="rejectBtn">REJECT</button>
+        </div>
+
+      </section>
+    </div>
+  </main>
+  <script src="js/request_form.js"></script>
+</body>
+</html>
