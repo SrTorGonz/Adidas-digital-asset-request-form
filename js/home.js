@@ -52,6 +52,10 @@ function renderAssets() {
             mediaElement = document.createElement("video");
             mediaElement.src = asset.file_path;
             mediaElement.controls = true;
+        } else if (asset.type.startsWith("vector")) {
+            mediaElement = document.createElement("img");
+            mediaElement.src = asset.file_path;
+            mediaElement.alt = asset.name;
         }
 
         if (mediaElement) {
