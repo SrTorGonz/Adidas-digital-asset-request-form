@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const card = document.createElement("div");
                 card.classList.add("request-card");
 
+                // Set the data-id attribute
+                card.setAttribute("data-id", request.id);
+
+                // Status color styling
                 const statusText = request.status === "pending" ? "pending" : "resolved";
                 const statusColor = request.status === "pending" ? "#FF7A27" : "#23C01B";
 
@@ -30,10 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p class="status">${statusText}</p> 
                 `;
 
-                container.appendChild(card);
+                // Redirect on click
+                card.addEventListener("click", () => {
+                    const requestId = card.getAttribute("data-id");
+                    window.location.href = `admin_asset_request.html?request_id=${requestId}`;
+                });
 
-                const statusElement = card.querySelector(".status");
-                statusElement.style.color = statusColor;
+                container.appendChild(card);
             });
         })
         .catch(error => {
