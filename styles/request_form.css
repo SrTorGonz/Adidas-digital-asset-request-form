@@ -100,17 +100,17 @@ main {
   width: 155px;
   height: 155px;
   background-color: #eee;
-  margin-right: 15px;
 }
 
 .preview img {
   width: 80px;
   height: 80px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .asset-info {
   flex: 1;
+  margin-left: 20px;
 }
 
 .asset-info strong {
