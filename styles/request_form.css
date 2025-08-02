@@ -99,14 +99,15 @@ main {
 .preview {
   width: 155px;
   height: 155px;
-  background-color: #eee;
+
+}
+.preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
-.preview img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-}
 
 .asset-info {
   flex: 1;
