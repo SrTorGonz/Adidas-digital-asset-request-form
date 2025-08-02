@@ -58,3 +58,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadAssets();
 });
+
+document.querySelector('.submit-btn').addEventListener('click', async () => {
+    const purpose = document.getElementById('purpose').value.trim();
+    const deadline = document.getElementById('deadline').value.trim();
+
+    // Validate date format DD/MM/YYYY
+    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+        if (!dateRegex.test(deadline)) {
+            alert("Date must be in format DD/MM/YYYY");
+            return;
+        }
+    // Validate purpose and deadline    
+    if (!purpose || !deadline) {
+        alert('Please fill all fields.');
+        return;
+    }
+    // Send request to submit the form
+    try {
+        const response = await fetch('submit_request.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ purpose, deadline })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            alert('Request submitted successfully!');
+            window.location.href = "my_requests.html";
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong.');
+    }
+});
