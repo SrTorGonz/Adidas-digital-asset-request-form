@@ -168,10 +168,16 @@ h1 {
 
 .overlay-content img,
 .overlay-content video {
-  max-width: 60%;
+  max-width: 100%;
   height: auto;
 }
 
+.overlay-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
 .overlay-info {
   display: flex;
   flex-direction: column;
