@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p>RESOLUTION: ${resolution}</p>
         <p>DEADLINE: ${asset.deadline}</p>
       </div>
-      <a href="${asset.file_path}" download>
+      <a class="icon-holder" href="${asset.file_path}" download>
         <span class="material-symbols-outlined">download</span>
       </a>
     `;

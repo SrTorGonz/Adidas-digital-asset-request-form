@@ -143,10 +143,18 @@ h1 {
   object-position: center;
 }
 
+.icon-holder {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+
 .asset-info {
   flex: 1;
   text-align: left;
   margin-left: 10px;
+  font-weight: 500;
+  color: #282828;
 }
 
 .asset-info strong {
