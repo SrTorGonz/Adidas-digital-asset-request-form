@@ -178,6 +178,8 @@ function openOverlay(asset) {
     video.muted = true;
     video.autoplay = true;
     video.loop = true;
+    video.constrolsList = "nodownload";
+    video.oncontexmenu = "return false";
     video.onloadedmetadata = () => {
       overlayRes.textContent = `${video.videoWidth}x${video.videoHeight}`;
     };

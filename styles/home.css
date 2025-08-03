@@ -115,11 +115,8 @@ h1 {
 }
 
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-    padding: 20px;
+  columns: 200px;
+  padding: 0 85px
 }
 
 .card {
@@ -129,6 +126,7 @@ h1 {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     background: #fff;
     height: fit-content;
+    margin-bottom: 20px;
 }
 
 .card img,
