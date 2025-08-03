@@ -51,7 +51,10 @@ function renderAssets() {
         } else if (asset.type.startsWith("video")) {
             mediaElement = document.createElement("video");
             mediaElement.src = asset.file_path;
-            mediaElement.controls = true;
+            mediaElement.controls = false;
+            mediaElement.muted = true;
+            mediaElement.loop = true;
+            mediaElement.autoplay = true;
         } else if (asset.type.startsWith("vector")) {
             mediaElement = document.createElement("img");
             mediaElement.src = asset.file_path;
