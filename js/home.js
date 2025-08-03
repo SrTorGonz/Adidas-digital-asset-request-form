@@ -67,9 +67,9 @@ function renderAssets() {
       card.appendChild(mediaElement);
     }
 
-    const nameLabel = document.createElement("p");
-    nameLabel.textContent = asset.name;
-    card.appendChild(nameLabel);
+    //const nameLabel = document.createElement("p");
+    //nameLabel.textContent = asset.name;
+    //card.appendChild(nameLabel);
 
     container.appendChild(card);
   });
