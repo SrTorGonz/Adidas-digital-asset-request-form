@@ -127,6 +127,8 @@ h1 {
     background: #fff;
     height: fit-content;
     margin-bottom: 20px;
+    transition: transform 0.3s ease;
+
 }
 
 .card img,
@@ -138,6 +140,9 @@ h1 {
     cursor: pointer;
 }
 
+.card:hover {
+    transform: scale(1.10);
+}
 
 .overlay {
   position: fixed;
