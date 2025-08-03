@@ -41,7 +41,7 @@ function fetchRequestDetails(requestId) {
         img.classList.add("preview");
         preview.appendChild(img);
 
-        const resolution = await getImageResolution(asset.file_path); // 👈 aquí usamos la función
+        const resolution = await getImageResolution(asset.file_path);
 
         const info = document.createElement("div");
         info.classList.add("asset-info");
