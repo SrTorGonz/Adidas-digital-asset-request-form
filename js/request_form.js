@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 const container = document.getElementById('assetCardsContainer');
-                container.innerHTML = '';
+                container.innerHTML = "<h2>SELECTED ASSETS</h2>";
 
                 data.assets.forEach(asset => {
                     const card = document.createElement('div');
