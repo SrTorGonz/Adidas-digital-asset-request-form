@@ -125,9 +125,10 @@ h1 {
 .card {
     width: 197px;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 3px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     background: #fff;
+    height: fit-content;
 }
 
 .card img,
@@ -135,10 +136,9 @@ h1 {
     width: 100%;
     height: auto;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     cursor: pointer;
 }
-
 
 
 .overlay {
@@ -168,7 +168,8 @@ h1 {
   position: relative;
 }
 
-.overlay-content img {
+.overlay-content img,
+.overlay-content video {
   max-width: 60%;
   height: auto;
 }
