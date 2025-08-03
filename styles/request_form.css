@@ -136,6 +136,7 @@ main {
   padding: 30px;
   border-radius: 4px;
   margin-top: 50px;
+  height: fit-content; 
 }
 
 .request-form h2 {
