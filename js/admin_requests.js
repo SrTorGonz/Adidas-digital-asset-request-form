@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>${new Date(request.created_at).toLocaleDateString()}</p>
                     <p>${request.email}</p>
                     <p>${request.deadline}</p>
-                    <p class="status">${statusText}</p> 
+                    <p class="status" style="color: ${statusColor};">${statusText}</p>
                 `;
 
                 // Redirect on click
