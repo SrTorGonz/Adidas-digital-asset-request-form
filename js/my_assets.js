@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // function to render assets
   async function renderAssets(assets) {
-  assetsGrid.innerHTML = ''; // limpia el grid
+  assetsGrid.innerHTML = ''; //clear previous content
 
   for (let asset of assets) {
     const format = asset.file_path.split('.').pop().toUpperCase();
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p>TYPE: ${type}</p>
         <p>FORMAT: ${format}</p>
         <p>RESOLUTION: ${resolution}</p>
+        <p>DEADLINE: ${asset.deadline}</p>
       </div>
       <a href="${asset.file_path}" download>
         <span class="material-symbols-outlined">download</span>
