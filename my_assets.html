@@ -38,14 +38,16 @@
     </div>
 
     <div class="filters">
-      <button>Images</button>
-      <button>Videos</button>
-      <button>Vectors</button>
+      <button class="filter-btn" data-type="image">Images</button>
+      <button class="filter-btn" data-type="video">Videos</button>
+      <button class="filter-btn" data-type="vector">Vectors</button>
     </div>
 
     <div class="assets-grid">
         <div class="asset-card">
-          <img src="jacket.png" alt="Asset" class="preview">
+          <div class="preview">
+            <img src="jacket.png" alt="Asset" class="preview">
+          </div>
           <div class="asset-info">
             <strong>Name</strong>
             <p>TYPE: image</p>
@@ -55,7 +57,9 @@
           <span class="material-symbols-outlined">download</span>
         </div>
         <div class="asset-card">
-          <img src="jacket.png" alt="Asset" class="preview">
+          <div class="preview">
+            <img src="jacket.png" alt="Asset" class="preview">
+          </div>
           <div class="asset-info">
             <strong>Name</strong>
             <p>TYPE: image</p>
@@ -65,7 +69,9 @@
           <span class="material-symbols-outlined">download</span>
         </div>
         <div class="asset-card">
-          <img src="jacket.png" alt="Asset" class="preview">
+          <div class="preview">
+            <img src="jacket.png" alt="Asset" class="preview">
+          </div>
           <div class="asset-info">
             <strong>Name</strong>
             <p>TYPE: image</p>
@@ -76,5 +82,6 @@
         </div>
     </div>
   </main>
+  <script src="js/my_assets.js"></script>
 </body>
 </html>
