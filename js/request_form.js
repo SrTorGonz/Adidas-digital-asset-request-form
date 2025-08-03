@@ -15,19 +15,61 @@ document.addEventListener("DOMContentLoaded", () => {
                     const card = document.createElement('div');
                     card.classList.add('asset-card');
 
-                    card.innerHTML = `
-                        <img src="${asset.file_path}" alt="Asset" class="preview">
-                        <div class="asset-info">
-                            <strong>${asset.name}</strong>
-                            <p>TYPE: ${asset.type}</p>
-                            <p>FORMAT: ${asset.format}</p>
-                            <p>RESOLUTION: ${asset.resolution}</p>
-                        </div>
-                        <span class="material-symbols-outlined delete-icon" data-id="${asset.id}" style="cursor:pointer;">delete</span>
-                    `;
+                    const mediaHolder = document.createElement('div');
+                    mediaHolder.classList.add('preview');
 
-                    // Click event for delete icon
-                    card.querySelector('.delete-icon').addEventListener('click', () => {
+                    const mediaElement = document.createElement(asset.type.toLowerCase() === 'video' ? 'video' : 'img');
+                    mediaElement.src = asset.file_path;
+                    mediaElement.className = 'preview';
+                    mediaElement.setAttribute('alt', 'Asset');
+                    mediaElement.muted = true;
+                    mediaElement.controls = false;
+                    mediaElement.loop = true;
+                    mediaElement.autoplay = true;
+                    mediaElement.preload = 'metadata';
+
+                    mediaHolder.appendChild(mediaElement);
+                
+
+                    const assetInfo = document.createElement('div');
+                    assetInfo.classList.add('asset-info');
+
+                    const nameEl = document.createElement('strong');
+                    nameEl.textContent = asset.name;
+
+                    const typeEl = document.createElement('p');
+                    typeEl.textContent = `TYPE: ${asset.type}`;
+
+                    const formatEl = document.createElement('p');
+                    formatEl.textContent = `FORMAT: ${asset.format}`;
+
+                    const resolutionEl = document.createElement('p');
+                    resolutionEl.textContent = `RESOLUTION: Loading...`;
+
+                    assetInfo.appendChild(nameEl);
+                    assetInfo.appendChild(typeEl);
+                    assetInfo.appendChild(formatEl);
+                    assetInfo.appendChild(resolutionEl);
+
+                    mediaElement.addEventListener('loadedmetadata', () => {
+                        if (asset.type.toLowerCase() === 'video') {
+                            resolutionEl.textContent = `RESOLUTION: ${mediaElement.videoWidth}x${mediaElement.videoHeight}`;
+                        }
+                    });
+
+                    mediaElement.addEventListener('load', () => {
+                        if (asset.type.toLowerCase() !== 'video') {
+                            resolutionEl.textContent = `RESOLUTION: ${mediaElement.naturalWidth}x${mediaElement.naturalHeight}`;
+                        }
+                    });
+
+                    const deleteIcon = document.createElement('span');
+                    deleteIcon.className = 'material-symbols-outlined delete-icon';
+                    deleteIcon.setAttribute('data-id', asset.id);
+                    deleteIcon.style.cursor = 'pointer';
+                    deleteIcon.textContent = 'delete';
+
+                    deleteIcon.addEventListener('click', () => {
                         const assetId = asset.id;
 
                         fetch('remove_from_cart.php', {
@@ -37,19 +79,22 @@ document.addEventListener("DOMContentLoaded", () => {
                             },
                             body: `asset_id=${assetId}`
                         })
-                        .then(res => res.json())
-                        .then(response => {
-                            if (response.success) {
-                                loadAssets(); // Recharge assets after removal
-                            } else {
-                                alert(response.message);
-                            }
-                        })
-                        .catch(err => {
-                            console.error('Error removing asset:', err);
-                        });
+                            .then(res => res.json())
+                            .then(response => {
+                                if (response.success) {
+                                    loadAssets(); // Recharge assets after removal
+                                } else {
+                                    alert(response.message);
+                                }
+                            })
+                            .catch(err => {
+                                console.error('Error removing asset:', err);
+                            });
                     });
-
+                    
+                    card.appendChild(mediaHolder);
+                    card.appendChild(assetInfo);
+                    card.appendChild(deleteIcon);
                     container.appendChild(card);
                 });
             })
@@ -65,16 +110,17 @@ document.querySelector('.submit-btn').addEventListener('click', async () => {
 
     // Validate date format DD/MM/YYYY
     const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
-        if (!dateRegex.test(deadline)) {
-            alert("Date must be in format DD/MM/YYYY");
-            return;
-        }
+    if (!dateRegex.test(deadline)) {
+        alert("Date must be in format DD/MM/YYYY");
+        return;
+    }
+
     // Validate purpose and deadline    
     if (!purpose || !deadline) {
         alert('Please fill all fields.');
         return;
     }
-    // Send request to submit the form
+
     try {
         const response = await fetch('submit_request.php', {
             method: 'POST',

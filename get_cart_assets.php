@@ -24,25 +24,16 @@ $assets = [];
 
 while ($row = $result->fetch_assoc()) {
     $file_path = $row['file_path'];
-    $full_path = __DIR__ . '/' . $file_path;
-    $format = 'Unknown';
-    $resolution = 'Unknown';
-
-    if (file_exists($full_path)) {
-        $img_info = getimagesize($full_path);
-        if ($img_info) {
-            $format = image_type_to_extension($img_info[2], false); // png, jpg...
-            $resolution = "{$img_info[0]}x{$img_info[1]}";
-        }
-    }
-
+    $type = strtolower($row['type']);
+    $extension = pathinfo($file_path, PATHINFO_EXTENSION);
+    
     $assets[] = [
         'id' => $row['id'],
         'name' => $row['name'],
         'file_path' => $file_path,
-        'type' => strtoupper($row['type']),
-        'format' => strtoupper($format),
-        'resolution' => $resolution
+        'type' => $type,
+        'format' => strtoupper($extension),
+        'resolution' => 'Loading...'
     ];
 }
 
