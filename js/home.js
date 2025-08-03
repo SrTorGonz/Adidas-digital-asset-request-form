@@ -39,40 +39,40 @@ function renderAssets() {
   }
 
   filtered.forEach(asset => {
-        const card = document.createElement("div");
-        card.classList.add("card");
+    const card = document.createElement("div");
+    card.classList.add("card");
 
-        let mediaElement;
+    let mediaElement;
 
-        if (asset.type.startsWith("image")) {
-            mediaElement = document.createElement("img");
-            mediaElement.src = asset.file_path;
-            mediaElement.alt = asset.name;
-        } else if (asset.type.startsWith("video")) {
-            mediaElement = document.createElement("video");
-            mediaElement.src = asset.file_path;
-            mediaElement.controls = false;
-            mediaElement.muted = true;
-            mediaElement.loop = true;
-            mediaElement.autoplay = true;
-        } else if (asset.type.startsWith("vector")) {
-            mediaElement = document.createElement("img");
-            mediaElement.src = asset.file_path;
-            mediaElement.alt = asset.name;
-        }
+    if (asset.type.startsWith("image")) {
+      mediaElement = document.createElement("img");
+      mediaElement.src = asset.file_path;
+      mediaElement.alt = asset.name;
+    } else if (asset.type.startsWith("video")) {
+      mediaElement = document.createElement("video");
+      mediaElement.src = asset.file_path;
+      mediaElement.controls = false;
+      mediaElement.muted = true;
+      mediaElement.loop = true;
+      mediaElement.autoplay = true;
+    } else if (asset.type.startsWith("vector")) {
+      mediaElement = document.createElement("img");
+      mediaElement.src = asset.file_path;
+      mediaElement.alt = asset.name;
+    }
 
-        if (mediaElement) {
-            mediaElement.classList.add("clickable-media");
-            mediaElement.addEventListener("click", () => openOverlay(asset));
-            card.appendChild(mediaElement);
-        }
+    if (mediaElement) {
+      mediaElement.classList.add("clickable-media");
+      mediaElement.addEventListener("click", () => openOverlay(asset));
+      card.appendChild(mediaElement);
+    }
 
-        const nameLabel = document.createElement("p");
-        nameLabel.textContent = asset.name;
-        card.appendChild(nameLabel);
+    const nameLabel = document.createElement("p");
+    nameLabel.textContent = asset.name;
+    card.appendChild(nameLabel);
 
-        container.appendChild(card);
-    });
+    container.appendChild(card);
+  });
 }
 
 // Search input event listener
@@ -106,75 +106,90 @@ document.querySelectorAll(".filter-btn").forEach(button => {
     renderAssets();
   });
 
-  
+
 });
 
 let selectedAssetId = null;
 
 const addToRequestBtn = document.getElementById("addToRequestBtn");
 
-    if (addToRequestBtn) {
-      addToRequestBtn.addEventListener("click", () => {
-        if (!selectedAssetId) return;
+if (addToRequestBtn) {
+  addToRequestBtn.addEventListener("click", () => {
+    if (!selectedAssetId) return;
 
-        fetch("add_to_cart.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ asset_id: selectedAssetId })
-        })
-        .then(res => res.json())
-        .then(data => {
-          console.log("Server response:", data);
-          if (data.success) {
-            alert("Asset added to request!");
-            closeOverlay();
-          } else {
-            alert("Error adding asset to request.");
-          }
-        })
-        .catch(error => {
-          console.error("Request failed:", error);
-          alert("Connection error.");
-        });
+    fetch("add_to_cart.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ asset_id: selectedAssetId })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Server response:", data);
+        if (data.success) {
+          alert("Asset added to request!");
+          closeOverlay();
+        } else {
+          alert("Error adding asset to request.");
+        }
+      })
+      .catch(error => {
+        console.error("Request failed:", error);
+        alert("Connection error.");
       });
-    }
+  });
+}
 
 function openOverlay(asset) {
-    selectedAssetId = asset.id; //  save the selected asset ID
+  selectedAssetId = asset.id;
 
-    const overlay = document.getElementById("overlay");
-    const overlayImage = document.getElementById("overlay-image");
-    const overlayTitle = document.getElementById("overlay-title");
-    const overlayType = document.getElementById("overlay-type");
-    const overlayResolution = document.getElementById("overlay-resolution");
-    const overlayFormat = document.getElementById("overlay-format");
+  // overlay elements
+  const overlay = document.getElementById("overlay");
+  const mediaBox = document.getElementById("overlay-media");  
+  const overlayTitle = document.getElementById("overlay-title");
+  const overlayType = document.getElementById("overlay-type");
+  const overlayRes = document.getElementById("overlay-resolution");
+  const overlayFmt = document.getElementById("overlay-format");
 
-    // Mostrar título y tipo
-    overlayTitle.textContent = asset.name;
-    overlayType.textContent = asset.type;
+  // clear previous content
+  mediaBox.innerHTML = "";
 
-    // Detectar formato (extensión) desde el nombre o path
-    const extension = asset.file_path.split('.').pop();
-    overlayFormat.textContent = extension.toUpperCase();
+  // Title, type and format
+  overlayTitle.textContent = asset.name;
+  overlayType.textContent = asset.type;
+  const extension = asset.file_path.split('.').pop().toUpperCase();
+  overlayFmt.textContent = extension;
 
-    // Cargar imagen o video
-    if (asset.type.startsWith("image")) {
-        overlayImage.src = asset.file_path;
-        overlayImage.style.display = "block";
-        overlayImage.onload = () => {
-        overlayResolution.textContent = `${overlayImage.naturalWidth}x${overlayImage.naturalHeight}`;
-        };
-    } else {
-        overlayImage.style.display = "none";
-        overlayResolution.textContent = "N/A";
-    }
+  // Create appropriate element based on type
+  if (asset.type.startsWith("image") || asset.type.startsWith("vector")) {
+    const img = new Image();
+    img.src = asset.file_path;
+    img.alt = asset.name;
+    img.onload = () => {
+      overlayRes.textContent = `${img.naturalWidth}x${img.naturalHeight}`;
+    };
+    mediaBox.appendChild(img);
 
-    overlay.classList.remove("hidden");
-    }
+  } else if (asset.type.startsWith("video")) {
+    const video = document.createElement("video");
+    video.src = asset.file_path;
+    video.controls = true;
+    video.muted = true;
+    video.autoplay = true;
+    video.loop = true;
+    video.onloadedmetadata = () => {
+      overlayRes.textContent = `${video.videoWidth}x${video.videoHeight}`;
+    };
+    mediaBox.appendChild(video);
+  } else {
+    overlayRes.textContent = "N/A";
+  }
 
-    function closeOverlay() {
-    const overlay = document.getElementById("overlay");
-    overlay.classList.add("hidden");
-    }
+  overlay.classList.remove("hidden");
+}
+
+function closeOverlay() {
+  const overlay = document.getElementById("overlay");
+  overlay.classList.add("hidden");
+}
