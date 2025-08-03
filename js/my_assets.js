@@ -15,44 +15,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // function to render assets
   async function renderAssets(assets) {
-    assetsGrid.innerHTML = ''; // clean the grid
+  assetsGrid.innerHTML = ''; // limpia el grid
 
-    for (let asset of assets) {
-      const format = asset.file_path.split('.').pop().toUpperCase();
-      const type = asset.type;
+  for (let asset of assets) {
+    const format = asset.file_path.split('.').pop().toUpperCase();
+    const type = asset.type.toLowerCase();
+    const card = document.createElement('div');
+    card.className = 'asset-card';
+    card.setAttribute('data-type', type);
+    card.setAttribute('data-name', asset.name.toLowerCase());
+
+    let previewElement;
+    let resolution = 'N/A';
+
+    if (type === 'image' || type === 'vector') {
       const img = new Image();
       img.src = asset.file_path;
 
-      // wait for image to load to get resolution
       await new Promise(resolve => {
         img.onload = () => {
-          const resolution = `${img.width}x${img.height}`;
-          const card = document.createElement('div');
-          card.className = 'asset-card';
-          card.setAttribute('data-type', type.toLowerCase());
-          card.setAttribute('data-name', asset.name.toLowerCase());
-
-          card.innerHTML = `
-            <div class="preview">
-              <img src="${asset.file_path}" alt="Asset" class="preview">
-            </div>
-            <div class="asset-info">
-              <strong>${asset.name}</strong>
-              <p>TYPE: ${type}</p>
-              <p>FORMAT: ${format}</p>
-              <p>RESOLUTION: ${resolution}</p>
-            </div>
-            <a href="${asset.file_path}" download>
-              <span class="material-symbols-outlined">download</span>
-            </a>
-          `;
-          assetsGrid.appendChild(card);
+          resolution = `${img.width}x${img.height}`;
           resolve();
         };
-        img.onerror = resolve; //if doesn't load, continue
+        img.onerror = resolve;
       });
+
+      previewElement = `<img src="${asset.file_path}" alt="Asset" class="preview" />`;
+
+    } else if (type === 'video') {
+      const video = document.createElement('video');
+      video.src = asset.file_path;
+      video.muted = true;
+      video.autoplay = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+
+      await new Promise(resolve => {
+        video.addEventListener('loadedmetadata', () => {
+          resolution = `${video.videoWidth}x${video.videoHeight}`;
+          resolve();
+        });
+        video.onerror = resolve;
+      });
+
+      previewElement = `
+        <video 
+          src="${asset.file_path}" 
+          muted autoplay loop playsinline 
+          class="preview"
+          preload="metadata"
+          style="max-width: 100%; display: block;">
+        </video>`;
     }
+
+    card.innerHTML = `
+      <div class="preview">
+        ${previewElement}
+      </div>
+      <div class="asset-info">
+        <strong>${asset.name}</strong>
+        <p>TYPE: ${type}</p>
+        <p>FORMAT: ${format}</p>
+        <p>RESOLUTION: ${resolution}</p>
+      </div>
+      <a href="${asset.file_path}" download>
+        <span class="material-symbols-outlined">download</span>
+      </a>
+    `;
+
+    assetsGrid.appendChild(card);
   }
+}
+
 
   // search filter
   searchInput.addEventListener('input', () => {
