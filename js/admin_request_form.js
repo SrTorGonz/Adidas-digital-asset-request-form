@@ -35,13 +35,36 @@ function fetchRequestDetails(requestId) {
         const preview = document.createElement("div");
         preview.classList.add("preview");
 
-        const img = document.createElement("img");
-        img.src = asset.file_path;
-        img.alt = asset.name;
-        img.classList.add("preview");
-        preview.appendChild(img);
+        let resolution = "N/A";
 
-        const resolution = await getImageResolution(asset.file_path);
+        if (asset.type === "image" || asset.type === "vector") {
+          const img = document.createElement("img");
+          img.src = asset.file_path;
+          img.alt = asset.name;
+          img.classList.add("preview");
+          preview.appendChild(img);
+
+          resolution = await getImageResolution(asset.file_path);
+        } else if (asset.type === "video") {
+          const video = document.createElement("video");
+          video.src = asset.file_path;
+          video.controls = false;
+          video.muted = true;
+          video.loop = true;
+          video.autoplay = true;
+          video.playsInline = true;
+          video.classList.add("preview");
+
+          await new Promise(resolve => {
+            video.addEventListener("loadedmetadata", () => {
+              resolution = `${video.videoWidth}x${video.videoHeight}`;
+              resolve();
+            });
+            video.onerror = resolve;
+          });
+
+          preview.appendChild(video);
+        }
 
         const info = document.createElement("div");
         info.classList.add("asset-info");
@@ -61,9 +84,10 @@ function fetchRequestDetails(requestId) {
         card.appendChild(info);
         card.appendChild(icon);
         container.appendChild(card);
-        });
+      });
     });
 }
+
 
 function getFileExtension(filename) {
   return filename.split('.').pop();
