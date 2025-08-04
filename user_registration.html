@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My assets</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles/registration.css"/>
+    <!-- Google Font connection -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Google material Icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=assignment_add,delete,download,notifications" />
+</head>
+<body>
+  <header>
+    <div class ="header-container">
+        <a href="homeAdmin.html">
+          <img src="images/Adidas_logo.png" alt="Adidas Logo" class="logo">
+        </a>
+        <nav class="nav-right">
+        <a href="adminRequests.html">Requests</a>
+        <a href="">
+          <span class="material-symbols-outlined">notifications</span>
+        </a>
+        </nav>
+    </div>
+    
+    </header>
+  
+  <main>
+    <div class="login-box">
+      <img src="images/Adidas_logo.png" alt="Logo" class="login-logo" />
+      <h2>USER REGISTRATION</h2>
+      <form id="loginForm">
+        <input type="text" id="email" name="email" placeholder="Email" required><br/>
+        <label for="role">Role:</label>
+        <select name="role" id="role" required>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button type="submit">Register Now</button>
+      </form>
+      <div id="message"></div>
+    </div>
+  </main>
+  <script src="js/login.js"></script>
+
+</body>
+</html>
