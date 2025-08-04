@@ -10,7 +10,7 @@ header('Content-Type: application/json');
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (!isset($data['email'], $data['role'])) {
-    echo json_encode(["success" => false, "message" => "Faltan datos requeridos."]);
+    echo json_encode(["success" => false, "message" => "Missing required fields."]);
     exit;
 }
 
@@ -27,7 +27,7 @@ $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows > 0) {
-    echo json_encode(["success" => false, "message" => "Ya existe un usuario con ese correo o nombre."]);
+    echo json_encode(["success" => false, "message" => "There is already a user with that email or username."]);
     exit;
 }
 $stmt->close();
@@ -39,7 +39,7 @@ $passwordHash = password_hash($passwordPlain, PASSWORD_DEFAULT);
 // Insert new user
 $stmt = $conn->prepare("INSERT INTO users (username, password_hash, email, role) VALUES (?, ?, ?, ?)");
 if (!$stmt) {
-    echo json_encode(["success" => false, "message" => "Error en prepare(): " . $conn->error]);
+    echo json_encode(["success" => false, "message" => "Error preparing statement: " . $conn->error]);
     exit;
 }
 $stmt->bind_param("ssss", $username, $passwordHash, $email, $role);
