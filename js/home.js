@@ -126,10 +126,8 @@ if (addToRequestBtn) {
     })
       .then(res => res.json())
       .then(data => {
-        console.log("Server response:", data);
-        if (data.success) {
-          alert("Asset added to request!");
-          closeOverlay();
+      if (data.success) {
+          document.getElementById("confirmOverlay").classList.remove("hidden");
         } else {
           alert("Error adding asset to request.");
         }
@@ -140,6 +138,13 @@ if (addToRequestBtn) {
       });
   });
 }
+document.getElementById("sendRequestBtn").addEventListener("click", () => {
+  window.location.href = "request_form.html";
+});
+
+document.getElementById("addMoreBtn").addEventListener("click", () => {
+  window.location.href = "home.html";
+});
 
 function openOverlay(asset) {
   selectedAssetId = asset.id;
