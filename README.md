@@ -2,6 +2,7 @@
 
 URL: https://adidasassets.rf.gd/
 
+FIGMA DESIGN: https://www.figma.com/design/XM8wzVsbgMLM9EHFjiodRX/Adidas?node-id=0-1&t=TWhku9wY6Z702xlY-1  
 Project Overview
 A web-based gallery for Adidas digital assets, featuring a request form that allows marketing team members to submit requests to use one or multiple specific assets. These requests are sent to an admin dashboard, where an administrator can approve or reject them.
 
