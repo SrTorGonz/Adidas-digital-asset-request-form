@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const deleteIcon = document.createElement('span');
                     deleteIcon.className = 'material-symbols-outlined delete-icon';
+                    deleteIcon.id = 'deleteIcon';
                     deleteIcon.setAttribute('data-id', asset.id);
                     deleteIcon.style.cursor = 'pointer';
                     deleteIcon.textContent = 'delete';

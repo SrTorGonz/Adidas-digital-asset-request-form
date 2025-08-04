@@ -108,7 +108,12 @@ main {
   object-position: center;
 }
 
-
+#deleteIcon {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  cursor: pointer;
+}
 .asset-info {
   flex: 1;
   margin-left: 20px;
